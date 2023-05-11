@@ -1,0 +1,16 @@
+Crypto Analytics
+
+1. users/register
+    1) CRUD Watchlist
+2.
+    1) diagrams
+    2) My Watchlist (туди крипту за якою слідкуємо) by default: Bitcoin and Etherium
+    3) Filter (popular, increasing, descending)
+    4) Crypto News
+    5) Period (показу курсу валюти)
+    6) Top 100 crypto coins
+    7) Filters by columns
+    8) Download to scv Top 100 crypto coins
+    9) Messages about news
+
+3. Telegram bot (назва coin -> курс)
