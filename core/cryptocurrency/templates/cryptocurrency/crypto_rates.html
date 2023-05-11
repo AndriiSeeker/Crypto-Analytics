@@ -1,0 +1,114 @@
+{% extends 'cryptocurrency/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="card-title">Top coins</h3>
+                        </div>
+                        <div class="col">
+                        </div>
+                        <div class="col" style="text-align: right">
+                            <a href="{% url 'cryptocurrency:update_rates' %}"
+                               class="btn btn-outline-info">Update</a>
+                            <p style="text-align: right">Last update {{ date }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col" style="text-align: right">
+                            <a style="font-size: 14px;">Export: </a>
+                            <a href="{% url 'cryptocurrency:download' %}"
+                               class="btn btn-outline-dark">CSV</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Symbol
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Percent change 1h
+                            </th>
+                            <th>
+                                Percent change 24h
+                            </th>
+                            <th>
+                                Percent change 7d
+                            </th>
+                            <th>
+                                Circulating supply
+                            </th>
+                        </tr>
+                        </thead>
+                        {% if coins %}
+                        {% for coin in coins %}
+                        <tbody>
+                        <tr>
+                            <td>
+                                {{ coin.name }}
+                            </td>
+                            <td>
+                                {{ coin.symbol }}
+                            </td>
+                            <td>
+                                {{ coin.price }}
+                            </td>
+                            <td>
+                                {{ coin.percent_change_1h }}
+                                {% if '-' in coin.percent_change_1h %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
+                                {%else %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ coin.percent_change_24h }}
+                                {% if '-' in coin.percent_change_24h %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
+                                {%else %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ coin.percent_change_7d }}
+                                {% if '-' in coin.percent_change_7d %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
+                                {%else %}
+                                <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ coin.circulating_supply }}
+                            </td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                    {% if coins|length == 15%}
+                    <div style="text-align: center">
+                        <a href="{% url 'cryptocurrency:load_more' %}" class="btn btn-light">Load all</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
