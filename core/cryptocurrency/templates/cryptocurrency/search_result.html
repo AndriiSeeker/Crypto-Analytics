@@ -1,0 +1,149 @@
+{% extends 'cryptocurrency/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                {% if coins %}
+                <div class="card-header">
+                    <h3 class="card-title">Today's Cryptocurrency Prices</h3>
+
+                    <div class="btn-container">
+                        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                            <a href="{% url 'cryptocurrency:download' %}"
+                               class="btn btn-outline-info">Export</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table tablesorter " id="">
+                            <thead class=" text-primary">
+                            <tr>
+                                <th>
+
+                                </th>
+                                <th style="max-width:30px">
+                                    #
+
+                                </th>
+                                <th>
+                                    Name
+
+                                </th>
+                                <th style="max-width:60px">
+                                    Symbol
+
+                                </th>
+                                <th style="max-width:50px">
+                                    Price
+
+                                </th>
+                                <th class="text-center">
+                                    1h %
+                                </th>
+                                <th class="text-center">
+                                    24h %
+
+                                </th>
+                                <th class="text-center">
+                                    7d %
+
+                                </th>
+                                <th class="text-center">
+                                    Circulating supply
+
+                                </th>
+                                <th class="text-center">
+                                    Coin id
+
+                                </th>
+                            </tr>
+                            </thead>
+                            {% if coins %}
+                            {% for coin in coins %}
+                            <tbody>
+                            <tr>
+                                {% if user.is_authenticated %}
+                                <td>
+                                    <form method="post" action="{% url 'cryptocurrency:rates' %}" class="favorite-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="coin_id" value="{{ coin.id }}">
+                                        {% if coin.id in favorites %}
+                                        <button class="star-icon colored" type="submit" data-coin-id="{{ coin.id }}">
+                                            <img src="{% static 'cryptocurrency/images/star-colored.png' %}"
+                                                 alt="Colored Star" class="star-favorite">
+                                        </button>
+                                        {% else %}
+                                        <button class="star-icon" type="submit" data-coin-id="{{ coin.id }}">
+                                            <img src="{% static 'cryptocurrency/images/star-uncolored.png' %}"
+                                                 alt="Uncolored Star" class="star-favorite">
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                {% endif %}
+                                <td style="max-width:30px">
+                                    {{ coin.id }}
+                                </td>
+                                <td>
+                                    {{ coin.name }}
+                                </td>
+                                <td style="max-width:60px">
+                                    {{ coin.symbol }}
+                                </td>
+                                <td style="max-width:50px">
+                                    {{ coin.price }}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_1h < 0%}
+                                    <a class="value-red">{{ coin.percent_change_1h }}</a>
+                                    {%else %}
+                                    <a class="value-green">{{ coin.percent_change_1h }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_24h < 0 %}
+                                    <a class="value-red">{{ coin.percent_change_24h }}</a>
+                                    {%else %}
+                                    <a class="value-green"">{{ coin.percent_change_24h }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_7d < 0 %}
+                                    <a class="value-red">{{ coin.percent_change_7d }}</a>
+                                    {%else %}
+                                    <a class="value-green">{{ coin.percent_change_7d }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {{ coin.circulating_supply }}
+                                </td>
+                                <td class="text-center">
+                                    {{ coin.coin_id }}
+                                </td>
+                            </tr>
+                            </tbody>
+                            {% endfor %}
+                            {% endif %}
+                        </table>
+                        {% if coins|length == 15%}
+                        <div style="text-align: center">
+                            <a href="{% url 'cryptocurrency:load_more' %}" class="btn btn-light">Load all</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="card-header">
+                    <h3>Sorry, there are no results for your request "{{ request_query }}"</h3>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

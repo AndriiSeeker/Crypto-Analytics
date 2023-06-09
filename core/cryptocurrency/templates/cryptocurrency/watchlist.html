@@ -1,0 +1,202 @@
+{% extends 'cryptocurrency/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            {% if not favorites %}
+            <div class="card ">
+                <div class="card-header">
+                    <h3 class="card-title">My Watchlist</h3>
+                </div>
+                <div class="empty-watchlist">
+                    <h4>In the <a href="{% url 'cryptocurrency:rates' %}">CRYPTOCURRENCIES</a> section,</h4>
+                    <h4>you can add coins that are relevant to you!</h4>
+                </div>
+            </div>
+            {% else %}
+            <div class="card ">
+                <div class="card-header">
+                    <h3 class="card-title">My Watchlist</h3>
+
+                    <div class="btn-container">
+                        <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                            <a href="{% url 'cryptocurrency:download_watchlist' %}"
+                               class="btn btn-outline-info">Export</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table tablesorter " id="">
+                            <thead class=" text-primary">
+                            <tr>
+                                <th>
+
+                                </th>
+                                <th style="max-width:30px">
+                                    #
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_id_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_id_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th>
+                                    Name
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_name_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_name_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th style="max-width:60px">
+                                    Symbol
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_symbol_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_symbol_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th style="max-width:50px">
+                                    Price
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_price_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_price_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th class="text-center">
+                                    1h %
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change1h_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change1h_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th class="text-center">
+                                    24h %
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change24h_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change24h_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th class="text-center">
+                                    7d %
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change7d_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_change7d_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto; font-size:10px"/></a>
+                                </th>
+                                <th class="text-center">
+                                    Circulating supply
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_supply_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_supply_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                </th>
+                                <th class="text-center">
+                                    Coin id
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_coin_id_ascend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-up.png' %}"
+                                            style="width: 17px;height: auto;"/></a>
+                                    <a href="{% url 'cryptocurrency:watchlist_filter_by_coin_id_descend' %}"><img
+                                            src="{% static 'cryptocurrency/images/arrow-down.png' %}"
+                                            style="width: 17px  ;height: auto;"/></a>
+                                </th>
+                            </tr>
+                            </thead>
+                            {% if coins %}
+                            {% for coin in coins %}
+                            <tbody>
+                            <tr>
+                                {% if user.is_authenticated %}
+                                <td>
+                                    <form method="post" action="{% url 'cryptocurrency:watchlist' %}"
+                                          class="favorite-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="coin_id" value="{{ coin.id }}">
+                                        {% if coin.id in favorites %}
+                                        <button class="star-icon colored" type="submit" data-coin-id="{{ coin.id }}">
+                                            <img src="{% static 'cryptocurrency/images/star-colored.png' %}"
+                                                 alt="Colored Star" class="star-favorite">
+                                        </button>
+                                        {% else %}
+                                        <button class="star-icon" type="submit" data-coin-id="{{ coin.id }}">
+                                            <img src="{% static 'cryptocurrency/images/star-uncolored.png' %}"
+                                                 alt="Uncolored Star" class="star-favorite">
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                {% endif %}
+                                <td style="max-width:30px">
+                                    {{ coin.id }}
+                                </td>
+                                <td>
+                                    {{ coin.name }}
+                                </td>
+                                <td style="max-width:60px">
+                                    {{ coin.symbol }}
+                                </td>
+                                <td style="max-width:50px">
+                                    {{ coin.price }}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_1h < 0%}
+                                    <a style="color:red">{{ coin.percent_change_1h }}</a>
+                                    {%else %}
+                                    <a style="color:green">{{ coin.percent_change_1h }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_24h < 0 %}
+                                    <a style="color:red">{{ coin.percent_change_24h }}</a>
+                                    {%else %}
+                                    <a style="color:green">{{ coin.percent_change_24h }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if coin.percent_change_7d < 0 %}
+                                    <a style="color:red">{{ coin.percent_change_7d }}</a>
+                                    {%else %}
+                                    <a style="color:green">{{ coin.percent_change_7d }}</a>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {{ coin.circulating_supply }}
+                                </td>
+                                <td class="text-center">
+                                    {{ coin.coin_id }}
+                                </td>
+                            </tr>
+                            </tbody>
+                            {% endfor %}
+                            {% endif %}
+                        </table>
+                        {% if coins|length == 15%}
+                        <div style="text-align: center">
+                            <a href="{% url 'cryptocurrency:load_more' %}" class="btn btn-light">Load all</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'cryptocurrency/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="content">
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="messages alert-success">
+            <ul>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message.tags == 'error' %}
+        <div class="messages alert-danger">
+            <ul>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    {% endif %}
+    <div class="row">
+        <div class="col-md-8" style="max-width:900px; margin-left: 20px">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title">Edit Profile</h4>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    {{user_form.first_name}}
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-md-1">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    {{user_form.last_name}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 pr-md-1">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    {{user_form.username}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 pr-md-1">
+                                <div class="form-group">
+                                    <label>Email address</label>
+                                    {{user_form.email}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>About Me</label>
+                                    {{profile_form.bio}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-fill btn-primary" name="update_user">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="card-body">
+                    <div class="author">
+                        <div class="block block-one"></div>
+                        <div class="block block-two"></div>
+                        <div class="block block-three"></div>
+                        <div class="block block-four"></div>
+                        {% if avatar %}
+                        <img src="{{ avatar }}" alt="Image" class="avatar">
+                        {% else %}
+                        <!-- Default avatar or placeholder image -->
+                        <img src="{% static 'users/images/default-avatar.png' %}" alt="Default Avatar"
+                             class="avatar">
+                        {% endif %}
+                        <h3 class="title">{{first_name}} {{last_name}}</h3>
+                        <p class="description" style="margin-top:-20px;">
+                            <b>{{username}}</b>
+                        </p>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card-description">
+                            <p style="text-align:center;margin-top:-15px;color:rgba(234, 240, 246, 0.8);">Bio</p>
+                            {% if bio %}
+                            <p class="description" style="text-align:center">{{bio}}</p>
+                            {% else %}
+                            <p class="description" style="text-align:center">Your biography</p>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div style="width: 300px">
+                <div class="card card-user" style="max-height:200px">
+                    <div class="card-body">
+                        <h4 class="title" style="margin-bottom:4px">Change an avatar</h4>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="custom-file-upload">
+                                {{update_avatar.image}}
+                            </div>
+                            <button type="submit" class="btn btn-fill btn-primary" name="update_photo">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" style="max-width:900px; margin-left: 20px">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="title">Change password</h4>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>Current password</label>
+                                    {{change_password_form.current_password}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pr-md-1">
+                                <div class="form-group">
+                                    <label>New password</label>
+                                    {{change_password_form.new_password}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-fill btn-primary" name="update_password">Change</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

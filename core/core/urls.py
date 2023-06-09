@@ -20,4 +20,9 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('cryptocurrency.urls')),
+    path('users/', include('users.urls')),
 ]
+
+handler403 = 'cryptocurrency.views.handler403'
+handler404 = 'cryptocurrency.views.handler404'
+handler500 = 'cryptocurrency.views.handler500'

@@ -2,69 +2,85 @@
 
 {% block content %}
 {% load static %}
-<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h3 class="card-title">Crypto news</h3>
-                        </div>
-                        <div class="col">
-                        </div>
-                        <div class="col" style="text-align: right">
-                            <a href="{% url 'cryptocurrency:update_news' %}" class="btn btn-outline-info">Update</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                        </div>
-                        <div class="col">
-                        </div>
-                        <div class="col">
-                            <p style="text-align: right">Last update {{ date }}</p>
-                        </div>
+<div class="content">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Crypto news</h2>
+                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons"
+                         style="margin-right: 3%;">
+                        <form action="{% url 'cryptocurrency:update_news' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </form>
                     </div>
                 </div>
-                {% if news %}
-                {% for new in news %}
-                <div class="card" style="width: 50rem;">
-                    <div class="card-body">
-                        <h4 class="card-title">{{new.title}}</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">{{new.date}}</h6>
-                        <p class="card-text">{{new.text}}</p>
-                        <h5 class="card-subtitle mb-2 text-muted">Source</h5>
-                        <a href="{{new.link}}" class="card-link">{{new.source}}</a>
-                    </div>
-                    <hr class="hr"/>
+                {% if news_obj %}
+                {% for new in news_obj %}
+                <div class="card-body">
+                    <h4 class="card-title">{{new.title}}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{new.date}}</h6>
+                    <p class="card-text">{{new.text}}</p>
+                    <br>
+                    <h5 class="card-subtitle mb-2 text-muted">Source</h5>
+                    <a href="{{new.link}}" class="card-link">{{new.source}}</a>
                 </div>
+                <hr class="hr"/>
                 {% endfor %}
                 {% endif %}
-                <div class="card" style="width: 60rem; height: 65px;">
-                    <div class="card-body" style="text-align: center;">
-                        {% if news.has_previous %}
-                        <a href="?page={{ news.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        {% endif %}
-                        <a href="?page=1">1</a>
-                        <a href="?page=2">2</a>
-                        <a href="?page=3">3</a>
-                        {% if news.has_next %}
-                        <a href="?page={{ news.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        {% endif %}
-                        <br>
-                        <span class="current">Page {{ news.number }} of {{ news.paginator.num_pages }}</span>
-                    </div>
+                <div class="card-body" style="text-align: center;">
+                    {% if news_obj.has_previous %}
+                    <a href="?page={{ news_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    {% endif %}
+                    <a href="?page=1">1</a>
+                    <a href="?page=2">2</a>
+                    <a href="?page=3">3</a>
+                    {% if news_obj.has_next %}
+                    <a href="?page={{ news_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    {% endif %}
+                    <br>
+                    <span class="current">Page {{ news_obj.number }} of {{ news_obj.paginator.num_pages }}</span>
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card" style="height:1050px">
+                <div class="logo-bot">
+                    <ul class="nav-bot">
+                        <li>
+                            <a href="https://t.me/CryptoCurrencyPetBot">
+                                <img src="{% static 'cryptocurrency/images/site-logo.png'%}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://t.me/CryptoCurrencyPetBot">
+                                <h3 style="margin-bottom:0; margin-left:10px">CryptoAnalytics</h3>
+                            </a>
+                        </li>
+                        <li></li>
+                        <li style="margin-left: 400px">
+                            <h3 style="margin-bottom:0;">Try our <a href="https://t.me/CryptoCurrencyPetBot">Telegram
+                                bot</a> to be the first to know about all the crypto news!</h3>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="image-bot">
+                    <a href="https://t.me/CryptoCurrencyPetBot">
+                        <img src="{% static 'cryptocurrency/images/phone_screen.png'%}">
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-
 {% endblock %}

@@ -2,6 +2,8 @@ Crypto Analytics
 
 1. users/register
     1) CRUD Watchlist
+    2) confirm email, forget password
+    3) LogIn with telegram
 2.
     1) diagrams
     2) My Watchlist (туди крипту за якою слідкуємо) by default: Bitcoin and Etherium
@@ -14,3 +16,8 @@ Crypto Analytics
     9) Messages about news
 
 3. Telegram bot (назва coin -> курс)
+    - /about
+    - /help (commands)
+    - /coin
+    - /news (last two news)
+    - /coin (монети з найбільшим приростом і спадом)

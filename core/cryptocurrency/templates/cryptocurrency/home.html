@@ -2,113 +2,282 @@
 
 {% block content %}
 {% load static %}
-<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{% url 'cryptocurrency:rates' %}" style="font-size: 25px; font-weight: bold;">Top coins</a>
+
+                </div>
+                <div class="alert alert-warning"
+                     style="margin: auto;width: 97%;padding: 10px;margin-bottom: 20px; margin-top: 10px;">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
                     <div class="row">
                         <div class="col">
-                            <h3 class="card-title">Crypto news</h3>
+                            <h2><img src="{% static 'cryptocurrency/images/gif_bitcoin.gif' %}" alt="Computer man"
+                                     style="width:48px;height:48px;"> <b>Bitcoin</b></h2>
+                            <table class="home_table">
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Price</th>
+                                    <th>1H %</th>
+                                    <th>24H %</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ bitcoin.symbol }}</td>
+                                    <td>{{ bitcoin.price }}</td>
+                                    <td>{{ bitcoin.percent_change_1h }}</td>
+                                    <td>{{ bitcoin.percent_change_24h }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2><img src="{% static 'cryptocurrency/images/gif-ethereum.gif' %}" alt="Computer man"
+                                     style="width:48px;height:48px;"> <b>Ethereum</b></h2>
+                            <table class="home_table">
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Price</th>
+                                    <th>1H %</th>
+                                    <th>24H %</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ ethereum.symbol }}</td>
+                                    <td>{{ ethereum.price }}</td>
+                                    <td>{{ ethereum.percent_change_1h }}</td>
+                                    <td>{{ ethereum.percent_change_24h }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
-                {% if news %}
-                {% for new in news %}
-                <div class="card" style="width: 50rem;">
-                    <div class="card-body">
-                        <h4 class="card-title">{{new.title}}</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">{{new.date}}</h6>
-                        <p class="card-text">{{new.text}}</p>
-                        <h5 class="card-subtitle mb-2 text-muted">Source</h5>
-                        <a href="{{new.link}}" class="card-link">{{new.source}}</a>
-                    </div>
-                    <hr class="hr"/>
-                </div>
-                {% endfor %}
-                {% endif %}
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Symbol
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th>
-                        Percent change 1h
-                    </th>
-                    <th>
-                        Percent change 24h
-                    </th>
-                    <th>
-                        Percent change 7d
-                    </th>
-                    <th>
-                        Circulating supply
-                    </th>
-                </tr>
-                </thead>
-                {% if coins %}
-                {% for coin in coins %}
-                <tbody>
-                <tr>
-                    <td>
-                        {{ coin.name }}
-                    </td>
-                    <td>
-                        {{ coin.symbol }}
-                    </td>
-                    <td>
-                        {{ coin.price }}
-                    </td>
-                    <td>
-                        {{ coin.percent_change_1h }}
-                        {% if '-' in coin.percent_change_1h %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
-                        {%else %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ coin.percent_change_24h }}
-                        {% if '-' in coin.percent_change_24h %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
-                        {%else %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ coin.percent_change_7d }}
-                        {% if '-' in coin.percent_change_7d %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_down.png' %}"/>
-                        {%else %}
-                        <img src="{% static 'cryptocurrency/images/icons/trend_up.png' %}"/>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ coin.circulating_supply }}
-                    </td>
-                </tr>
-                </tbody>
-                {% endfor %}
-                {% endif %}
-            </table>
-            {% if coins|length == 15%}
-            <div style="text-align: center">
-                <a href="{% url 'cryptocurrency:load_more' %}" class="btn btn-light">Load all</a>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{% url 'cryptocurrency:news' %}" style="font-size: 25px; font-weight: bold;">News</a>
+                </div>
+                <div class="alert alert-info"
+                     style="margin: auto;width: 97%;padding: 10px;margin-bottom: 20px; margin-top: 10px;">
+                    <h4>{{news.title}}</h4>
+                    <h5>{{news.text}}</h5>
+                    <a href="{{new.link}}" class="card-link"
+                       style="font-size: 15px; font-weight: bold; color: 	#F8F8F8">{{news.source}}</a>
+                    <!--                    <img src="{% static 'cryptocurrency/images/phone_bot.png' %}" style="border-radius: 4%; width: 300px;">-->
+                </div>
             </div>
-            {% endif %}
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title">Top Cryptocurrency Spot Exchanges</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table tablesorter " id="">
+                            <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Exchange
+                                </th>
+                                <th>
+                                    Score
+                                </th>
+                                <th>
+                                    Trading volume(24h)
+                                </th>
+                                <th>
+                                    Weekly Visits
+                                </th>
+                                <th>
+                                    # Markets
+                                </th>
+                                <th>
+                                    # Coins
+                                </th>
+                                <th>
+                                    Fiat Supported
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    <a href="https://www.binance.com/en"><img
+                                            src="{% static 'cryptocurrency/images/binance.png' %}"
+                                            style="width:45px; height:auto">
+                                        Binance</a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="score-block">
+                                        <span>9.9</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $7,539,831,048
+                                </td>
+                                <td>
+                                    12,323,434
+                                </td>
+                                <td>
+                                    1698
+                                </td>
+
+                                <td>
+                                    386
+                                </td>
+                                <td>
+                                    EUR, GBP, BRL
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                    <a href="https://www.coinbase.com/"><img
+                                            src="{% static 'cryptocurrency/images/coinbase.png' %}"
+                                            style="width:40px; height:auto">
+                                        Coinbase Exchange</a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="score-block">
+                                        <span>8.6</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $914,498,398
+                                </td>
+                                <td>
+                                    32,469
+                                </td>
+                                <td>
+                                    537
+                                </td>
+
+                                <td>
+                                    243
+                                </td>
+                                <td>
+                                    USD, EUR, GBP
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    3
+                                </td>
+                                <td>
+                                    <a href="https://www.kraken.com/"><img
+                                            src="{% static 'cryptocurrency/images/kraken.png' %}"
+                                            style="width:40px; height:auto">
+                                        Kraken</a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="score-block">
+                                        <span>8.2</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $473,679,541
+                                </td>
+                                <td>
+                                    904,263
+
+                                </td>
+                                <td>
+                                    730
+                                </td>
+
+                                <td>
+                                    229
+                                </td>
+                                <td>
+                                    USD, EUR, GBP
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    <a href="https://www.kucoin.com/"><img
+                                            src="{% static 'cryptocurrency/images/kucoin.png' %}"
+                                            style="width:40px; height:auto">
+                                        KuCoin</a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="score-block">
+                                        <span>7.4</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $401,942,779
+                                </td>
+                                <td>
+                                    1,919,190
+                                </td>
+                                <td>
+                                    1528
+                                </td>
+
+                                <td>
+                                    849
+                                </td>
+                                <td>
+                                    USD, AED, ARS
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    5
+                                </td>
+                                <td>
+                                    <a href="https://www.bybit.com/en-US/"><img
+                                            src="{% static 'cryptocurrency/images/bybit.png' %}"
+                                            style="width:60px; height:auto"> Bybit</a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="score-block">
+                                        <span>7.3</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $646,487,755
+                                </td>
+                                <td>
+                                    2,902,514
+                                </td>
+                                <td>
+                                    584
+                                </td>
+                                <td>
+                                    390
+                                </td>
+                                <td>
+                                    USD, EUR, GBP
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}

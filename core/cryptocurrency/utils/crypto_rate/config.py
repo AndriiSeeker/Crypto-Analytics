@@ -1,2 +1,0 @@
-# storing API data
-API_KEY = "4003f672-8472-47a6-8b14-3a16ca705480"
