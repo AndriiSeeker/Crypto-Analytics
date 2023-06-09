@@ -7,7 +7,8 @@ Django website
 
 <h3>So this is a platform for your Cryptocurrency routine and here you can:</h3>
 <ul>
-  <li>Sign in and Reset Password</li>
+  <li>Sign up and Reset Password</li>
+  <li>Confirm your email to Log in</li>
   <li>Monitor Coin Rates, News, Exchanges</li>
   <li>Download coin rates to csv</li>
   <li>Search for a coin by its name</li>
