@@ -14,6 +14,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.conf import settings

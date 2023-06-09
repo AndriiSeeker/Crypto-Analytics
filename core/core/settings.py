@@ -31,7 +31,11 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', 'cryptoanalytics.fly.dev', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://cryptoanalytics.fly.dev'
+]
 
 # Application definition
 
@@ -111,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CSRF_TRUSTED_ORIGINS = ['cryptoanalytics.fly.dev', ]
 
 
 # Internationalization
