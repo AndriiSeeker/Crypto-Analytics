@@ -3,6 +3,8 @@ Django website
 
 <a href="https://cryptoanalytics.fly.dev/">Visit CryptoAnalytics</a>
 
+<a href="https://youtu.be/GZOj1R0q5mc">Video. What you can do on CryptoAnlytics?</a>
+
 <a href="https://www.linkedin.com/in/andrii-svitelskyi-2a4775262/"><img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/></a>
 
 <h3>So this is a platform for your Cryptocurrency routine and here you can:</h3>
