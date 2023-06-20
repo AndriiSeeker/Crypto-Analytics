@@ -31,7 +31,7 @@ I used the next technologies and packages
   <li>Django</li>
   <li>JavaScript</li>
   <li>HTML/CSS</li>
-  <li>Postgres</li>
+  <li>PostgreSQL</li>
   <li>SQLAlchemy</li>
   <li>Third-party APIs</li>
   <li>Cloudinary</li>
